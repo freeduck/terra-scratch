@@ -1,0 +1,23 @@
+---
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: ClusterFlow
+metadata:
+    name: "all-logs"
+    namespace: "cattle-logging-system"
+spec:
+  match:
+  - exclude:
+      container_names: []
+      hosts: []
+      labels: {}
+      namespaces:
+${excluded_namespaces}
+  - select:
+      container_names: []
+      hosts: []
+      labels: {}
+  filters:
+  - record_transformer:
+      enable_ruby: true
+  globalOutputRefs:
+    - "cluster-to-es"
