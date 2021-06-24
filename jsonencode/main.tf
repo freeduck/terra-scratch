@@ -8,7 +8,9 @@ locals {
       }
     }
   })
-  rendered_yaml = templatefile("${path.module}/test.yaml")
+  rendered_yaml = templatefile("${path.module}/test.yaml", {
+    ILM_JSON = local.ns_ilm_json
+  })
 }
 
 output "yaml" {
