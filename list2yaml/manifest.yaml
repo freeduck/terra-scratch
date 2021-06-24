@@ -11,7 +11,9 @@ spec:
       hosts: []
       labels: {}
       namespaces:
-${excluded_namespaces}
+        - hest
+        - hjort
+        - hund
   - select:
       container_names: []
       hosts: []
@@ -19,5 +21,7 @@ ${excluded_namespaces}
   filters:
   - record_transformer:
       enable_ruby: true
+      records:
+        - log_id: ${(0...32).map { (65 + rand(26)).chr }.join}
   globalOutputRefs:
     - "cluster-to-es"
